@@ -1,14 +1,19 @@
 $(document).ready(function(){
+
 var toDos = [];
 
-$("#addToDo").click(function addToDo(){
+var add = (function () {
+    var counter = 0;
+    return function () {return counter += 1;}
+})();
 
+$("#addToDo").click(function addToDo(){
     var toDoDate = $('#toDoDate').val();
     var toDoAction = $('#toDoAction').val();
     if(toDoDate === ""){
         toDoDate = "No Date";
     }
-    var toDo = {"date": toDoDate, "ToDo": toDoAction, "resolved":false};
+    var toDo = {"id":add() ,"date": toDoDate, "ToDo": toDoAction, "resolved":false};
 
     toDos.push(toDo);
 
@@ -16,32 +21,41 @@ $("#addToDo").click(function addToDo(){
 });
 
 $(document).on("mouseenter", "tr",function(e){
-    console.log($(e.target));
-    //$(this).removeClass("hidden");
-    //$(".hidden").show();
-    $(this).siblings("td button").show();
+    $(this).find(".hidden").css("visibility", "visible");
 });
 $(document).on("mouseleave", "tr",function(){
-    //$(this).addClass("hidden");
-    //$(".hidden").hide();
-    $(this).siblings("td button").hide();
+    $(this).find(".hidden").css("visibility", "hidden");
 });
 
-function removeObjectByID(){
-    var pos = parseInt($('#objID').val());
-    if (isNaN(pos)){
-        alert("Error: invalid input");
-        return;
-    }
-    objects.splice(pos, 1);
+$(document).on("click", ".resolve", function(){
+    var parent = $(this).closest("tr");
+    var value = parseInt(parent.find(".ids").text());
+    var pos = toDos.findIndex(function(obj){
+                return obj["id"] === value;
+            });
 
+    toDos[pos].resolved = true;
     updateClean();
-}
+
+});
+
+$(document).on("click", ".remove", function(){
+    var parent = $(this).closest("tr");
+    var value = parseInt(parent.find(".ids").text());
+    
+    var pos = toDos.findIndex(function(obj){
+                return obj["id"] === value;
+            });
+
+    toDos.splice(pos, 1);
+    updateClean();
+
+});
 
 function updateClean(){
     var txt = "";
     for(var i=0;i<toDos.length;i++){
-        txt += "<tr><td>"+(i+1)+"</td><td>"+toDos[i].date+"</td><td>"+toDos[i].ToDo+"</td><td>"+toDos[i].resolved+"</td><td class='hidden'><button type='button'>Resolve</button><br><button type='button'>Remove</button></td></tr>";
+        txt += "<tr><td class='ids'>"+toDos[i].id+"</td><td>"+toDos[i].date+"</td><td>"+toDos[i].ToDo+"</td><td>"+toDos[i].resolved+"</td><td class='hidden'><button type='button' class='resolve'>Set as resolved</button><br><button type='button' class='remove'>Remove To Do</button></td></tr>";
     }
     $("#content").html(txt);
 
