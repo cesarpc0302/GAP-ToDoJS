@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="toDo.js"></script>
+    <title>ToDo</title>
+</head>
+<body>
+
+    <h1>To Do list</h1>
+    
+    <div id="toDoList">
+        <h2>To do list:</h2>
+        
+        <div id="filters">
+            <label>Filter: </label>
+            <select name="filterOptions">
+              <option value="All" selected>All</option>
+              <option value="byDate">by Date</option>
+              <option value="finished">Finished</option>
+              <option value="unfinished">Unfinished</option>
+            </select>
+        </div>
+
+        <div id="list">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>date</th> 
+                        <th>To Do</th>
+                        <th>resolved</th>
+                        <th >actions</th>
+                    </tr>
+                </thead>
+                <tbody id="content">
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div>
+    
+        <h2>Add ToDo</h2>
+
+        <div>
+            <label>Date </label>
+            <input type="date" id="toDoDate">
+            <br>
+            <label>To do: </label>
+            <textarea id="toDoAction" maxlength="150">Enter text here... max 150 characters</textarea>
+        </div>  
+
+        <button type="button"  id="addToDo">Add ToDo</button>
+        
+    </div>
+
+</body>
+</html>
