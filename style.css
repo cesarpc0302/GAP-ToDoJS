@@ -1,0 +1,7 @@
+tr:hover{
+	background-color: lightgreen;
+}
+
+.hidden {
+    visibility: hidden;
+}
