@@ -1,3 +1,21 @@
+.addToDo {
+	float: left;
+    max-width: 500px;
+}
+
+#toDoList {
+	float: right;
+    max-width: 500px;
+}
+
+
+
+
+
+
+
+
+
 tr:hover{
 	background-color: lightgreen;
 }
