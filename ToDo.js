@@ -8,16 +8,13 @@ var add = (function () {
 })();
 
 $("#addToDo").click(function addToDo(){
-    var toDoDate = $('#toDoDate').val();
     var toDoAction = $('#toDoAction').val();
-    if(toDoDate === ""){
-        toDoDate = "No Date";
-    }
-    var toDo = {"id":add() ,"date": toDoDate, "ToDo": toDoAction, "resolved":false};
+    
+    var toDo = {"id":add(), "ToDo": toDoAction, "resolved":false};
 
     toDos.push(toDo);
 
-    updateClean();
+    updateClean(toDos);
 });
 
 $(document).on("mouseenter", "tr",function(e){
@@ -35,7 +32,7 @@ $(document).on("click", ".resolve", function(){
             });
 
     toDos[pos].resolved = true;
-    updateClean();
+    updateClean(toDos);
 
 });
 
@@ -48,14 +45,58 @@ $(document).on("click", ".remove", function(){
             });
 
     toDos.splice(pos, 1);
-    updateClean();
+    updateClean(toDos);
 
 });
 
-function updateClean(){
+$(document).on("click", "#all", function(){
+    updateClean(toDos);
+});
+
+$(document).on("click", "#resolved", function(){
+    alert("resolved");
+    var toDoResolved = toDos.filter(function(obj){
+                return obj["resolved"] === true;
+            });
+    updateClean(toDoResolved);
+});
+
+$(document).on("click", "#pending", function(){
+    alert("pending");
+    var toDoResolved = toDos.filter(function(obj){
+                return obj["resolved"] !== true;
+            });
+    updateClean(toDoResolved);
+});
+
+$("#fOptions").change(function() {
+
+    var id = $(this).find("option:selected").attr("id");
+alert(id);
+    switch (id){
+        case "all":
+            updateClean(toDos);
+            break;
+        case "resolved":
+            var toDoResolved = toDos.filter(function(obj){
+                return obj["resolved"] === true;
+            });
+            updateClean(toDoResolved);
+            break;
+        case "pending":
+            var toDoResolved = toDos.filter(function(obj){
+                return obj["resolved"] !== true;
+            });
+            updateClean(toDoResolved);
+            break;
+        default:
+            updateClean(toDos);
+  }});
+
+function updateClean(toDoArray){
     var txt = "";
-    for(var i=0;i<toDos.length;i++){
-        txt += "<tr><td class='ids'>"+toDos[i].id+"</td><td>"+toDos[i].date+"</td><td>"+toDos[i].ToDo+"</td><td>"+toDos[i].resolved+"</td><td class='hidden'><button type='button' class='resolve'>Set as resolved</button><br><button type='button' class='remove'>Remove To Do</button></td></tr>";
+    for(var i=0;i<toDoArray.length;i++){
+        txt += "<tr><td class='ids'>"+toDoArray[i].id+"</td><td>"+toDoArray[i].ToDo+"</td><td>"+toDoArray[i].resolved+"</td><td class='hidden'><button type='button' class='resolve'>Set as resolved</button><br><button type='button' class='remove'>Remove To Do</button></td></tr>";
     }
     $("#content").html(txt);
 
