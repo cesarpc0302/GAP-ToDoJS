@@ -1,25 +1,99 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+h1, h2{
+  color: #126675;
+}
+
+h2 {
+  margin-top: 0;
+}
+
 .addToDo {
 	float: left;
-    max-width: 500px;
+  width: 300px;
 }
 
 #toDoList {
-	float: right;
-    max-width: 500px;
+	margin-left: 320px;
+  margin-right: 50px;
+  width: 100%;
+  min-width: 500px;
 }
 
+table {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 2px;
+    border-color: grey;
+}
 
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+}
 
+.toDoTable {
+    margin: 1em 0;
+    min-width: 500px;
+    max-width: 100%;
+    overflow: hidden;
+    color: #024457;
+}
 
+.toDoTable th {
+    display: table-cell;
+    border: 1px solid #FFF;
+    background-color: #167F92;
+    color: #FFF;
+    padding: 1em;
+}
+.toDoTable th:last-child {
+  display: none;
+}
 
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
 
+.toDoTable tr:nth-child(even){
+  background-color: #daeaea;
+}
 
+.toDoTable td {
+    border: 1px solid #a1c0c6;
+    padding: 1em;
+}
 
+.toDoTable td:last-child {
+  padding: 0;
+  background-color: whitesmoke;
+  border: initial;
+}
 
-tr:hover{
-	background-color: lightgreen;
+textarea{
+    width: 280px;
+    height: 50px;
+    max-width: 280px;
+}
+
+button{
+    padding: 0.4em;
+    display: table;
+    width: 100px;
+    background-color: #C2DDE2;
+    border: none;
+    margin: 2px 0 2px 0;
+}
+
+button:active{
+    background-color: #88BDC7;
 }
 
 .hidden {
-    visibility: hidden;
+  visibility: hidden;
 }

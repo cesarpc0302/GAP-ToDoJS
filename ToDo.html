@@ -12,11 +12,11 @@
     
     <div class="addToDo">
     
-        <h2>Add ToDo</h2>
+        <h2>Add item</h2>
 
         <div>
-            <label>To do: </label>
-            <textarea id="toDoAction" maxlength="150">Enter text here... max 150 characters</textarea>
+            <label>To do: </label><br><br>
+            <textarea id="toDoAction" maxlength="150" required>Enter text here... max 150 characters</textarea>
         </div>  
 
         <button type="button" id="addToDo">Add ToDo</button>
@@ -36,12 +36,12 @@
         </div>
 
         <div id="list">
-            <table>
+            <table class="toDoTable">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>To Do</th>
-                        <th>resolved</th>
+                        <th>Resolved</th>
                         <th ></th>
                     </tr>
                 </thead>
