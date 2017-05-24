@@ -9,15 +9,16 @@ var add = (function () {
 
 $("#addToDo").click(function addToDo(){
     var toDoAction = $('#toDoAction').val();
-    
-    var toDo = {"id":add(), "ToDo": toDoAction, "resolved":false};
-
-    toDos.push(toDo);
-
-    updateClean(toDos);
+    if(toDoAction.length === 0 || !toDoAction.trim()){
+    	$('#toDoAction').val("This field can not be empty");
+    }else{
+    	var toDo = {"id":add(), "ToDo": toDoAction, "resolved":false};
+    	toDos.push(toDo);
+    	updateClean(toDos);
+    }
 });
 
-$(document).on("mouseenter", "tr",function(e){
+$(document).on("mouseenter", "tr",function(){
     $(this).find(".hidden").css("visibility", "visible");
 });
 $(document).on("mouseleave", "tr",function(){
@@ -49,30 +50,9 @@ $(document).on("click", ".remove", function(){
 
 });
 
-$(document).on("click", "#all", function(){
-    updateClean(toDos);
-});
-
-$(document).on("click", "#resolved", function(){
-    alert("resolved");
-    var toDoResolved = toDos.filter(function(obj){
-                return obj["resolved"] === true;
-            });
-    updateClean(toDoResolved);
-});
-
-$(document).on("click", "#pending", function(){
-    alert("pending");
-    var toDoResolved = toDos.filter(function(obj){
-                return obj["resolved"] !== true;
-            });
-    updateClean(toDoResolved);
-});
-
 $("#fOptions").change(function() {
 
     var id = $(this).find("option:selected").attr("id");
-alert(id);
     switch (id){
         case "all":
             updateClean(toDos);
@@ -82,12 +62,14 @@ alert(id);
                 return obj["resolved"] === true;
             });
             updateClean(toDoResolved);
+            $("#fOptions").val("resolved");
             break;
         case "pending":
             var toDoResolved = toDos.filter(function(obj){
                 return obj["resolved"] !== true;
             });
             updateClean(toDoResolved);
+            $("#fOptions").val("pending");
             break;
         default:
             updateClean(toDos);
@@ -96,9 +78,10 @@ alert(id);
 function updateClean(toDoArray){
     var txt = "";
     for(var i=0;i<toDoArray.length;i++){
-        txt += "<tr><td class='ids'>"+toDoArray[i].id+"</td><td>"+toDoArray[i].ToDo+"</td><td>"+toDoArray[i].resolved+"</td><td class='hidden'><button type='button' class='resolve'>Set as resolved</button><br><button type='button' class='remove'>Remove To Do</button></td></tr>";
+        txt += "<tr><td class='ids'>"+toDoArray[i].id+"</td><td>"+toDoArray[i].ToDo+"</td><td>"+toDoArray[i].resolved+"</td><td class='hidden'><button type='button' class='resolve'>Set as resolved</button><button type='button' class='remove'>Remove To Do</button></td></tr>";
     }
     $("#content").html(txt);
-
+	$("#toDoAction").val("Enter text here... max 150 characters");
+  $("#fOptions").val("All");
 }
 });
